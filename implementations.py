@@ -2,14 +2,44 @@ import numpy as np
 
 
 def compute_mse_loss(e):
-    """Calculate the MSE loss"""
+    """
+    Calculate the MSE loss
+
+    Args:
+        e: np.ndarray
+            Error vector
+    Returns:
+        loss: float
+            MSE loss
+    """
+
     n = len(e)
     loss = (1 / (2 * n)) * (e.T @ e)
     return loss
 
 
 def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
-    """Linear regression using gradient descent."""
+    """
+    Linear regression using gradient descent.
+
+    Args:
+        y: np.ndarray
+            (nx1) Targets of the model
+        tx: np.ndarray
+            (nxd) Entries of the model
+        initial_w: np.ndarray
+            Initial weigths
+        max_iters: int
+            Max number of iterations for the algorithm
+        gamma: float
+            Learning rate
+
+    Returns:
+        w: np.ndarray
+            (dx1) Optimal weights
+        loss: float
+            Empirical loss for the final model
+    """
     w = initial_w
     n = len(y)
 
@@ -24,7 +54,27 @@ def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
 
 
 def mean_squared_error_sgd(y, tx, initial_w, max_iters, gamma):
-    """Linear regression using stochastic gradient descent."""
+    """
+    Linear regression using stochastic gradient descent.
+
+    Args:
+        y: np.ndarray
+            (nx1) Targets of the model
+        tx: np.ndarray
+            (nxd) Entries of the model
+        initial_w: np.ndarray
+            Initial weigths
+        max_iters: int
+            Max number of iterations for the algorithm
+        gamma: float
+            Learning rate
+
+    Returns:
+        w: np.ndarray
+            (dx1) Optimal weights
+        loss: float
+            Empirical loss for the final model
+    """
     w = initial_w
     n = len(y)
 
@@ -43,7 +93,20 @@ def mean_squared_error_sgd(y, tx, initial_w, max_iters, gamma):
 
 
 def least_squares(y, tx):
-    """Least squares regression using normal equations."""
+    """
+    Least squares regression using normal equations.
+    Args:
+        y: np.ndarray
+            (nx1) Targets of the model
+        tx: np.ndarray
+            (nxd) Entries of the model
+
+    Returns:
+        w: np.ndarray
+            (dx1) Optimal weights
+        loss: float
+            Empirical loss for the final model
+    """
     a = tx.T @ tx
     b = tx.T @ y
     w = np.linalg.solve(a, b)
@@ -53,7 +116,22 @@ def least_squares(y, tx):
 
 
 def ridge_regression(y, tx, lambda_):
-    """Ridge regression using normal equations."""
+    """
+    Ridge regression using normal equations.
+    Args:
+        y: np.ndarray
+            (nx1) Targets of the model
+        tx: np.ndarray
+            (nxd) Entries of the model
+        lambda_: float
+            Regularizer weight
+
+    Returns:
+        w: np.ndarray
+            (dx1) Optimal weights
+        loss: float
+            Empirical loss for the final model
+    """
     n = len(y)
     d = tx.shape[1]
     a = tx.T @ tx + 2 * n * lambda_ * np.eye(d)
@@ -65,10 +143,48 @@ def ridge_regression(y, tx, lambda_):
 
 
 def logistic_regression(y, tx, initial_w, max_iters, gamma):
-    """Logistic regression using gradient descent."""
+    """
+    Logistic regression using gradient descent.
+    Args:
+        y: np.ndarray
+            (nx1) Targets of the model
+        tx: np.ndarray
+            (nxd) Entries of the model
+        initial_w: np.ndarray
+            Initial weigths
+        max_iters: int
+            Max number of iterations for the algorithm
+        gamma: float
+            Learning rate
+
+    Returns:
+        w: np.ndarray
+            (dx1) Optimal weights
+        loss: float
+            Empirical loss for the final model
+    """
     pass
 
 
 def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
-    """Regularized logistic regression using gradient descent."""
+    """
+    Regularized logistic regression using gradient descent.
+    Args:
+        y: np.ndarray
+            (nx1) Targets of the model
+        tx: np.ndarray
+            (nxd) Entries of the model
+        initial_w: np.ndarray
+            Initial weigths
+        max_iters: int
+            Max number of iterations for the algorithm
+        gamma: float
+            Learning rate
+
+    Returns:
+        w: np.ndarray
+            (dx1) Optimal weights
+        loss: float
+            Empirical loss for the final model
+    """
     pass

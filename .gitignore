@@ -220,6 +220,7 @@ __marimo__/
 # Dataset files
 *.csv
 *.zip
+dataset_to_release
 
 # Submissions and models
 submissions/

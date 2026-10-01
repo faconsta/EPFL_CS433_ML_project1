@@ -234,3 +234,6 @@ submissions/
 
 # Allow the final project report
 !report.pdf
+
+# Remove vscode automatically generated files
+.vscode/

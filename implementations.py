@@ -18,6 +18,36 @@ def compute_mse_loss(e):
     return loss
 
 
+def sigmoid(t):
+    """
+    Apply sigmoid function on t.
+
+    Args:
+        t: scalar or numpy array
+
+    Returns:
+        scalar or numpy array
+    """
+    sigmoid = 1.0 / (1 + np.exp(-t))
+    return sigmoid
+
+
+def compute_logistic_loss(y, tx, w):
+    """
+    Compute the cost by negative log likelihood.
+
+    Args:
+        y: shape=(N,)
+        tx: shape=(N, D)
+        w: shape=(D,)
+
+    Returns:
+        a non-negative loss
+    """
+    pred = sigmoid(tx @ w)
+    return -np.mean(y * np.log(pred) + (1.0 - y) * np.log(1.0 - pred))
+
+
 def mean_squared_error_gd(y, tx, initial_w, max_iters, gamma):
     """
     Linear regression using gradient descent.
@@ -163,12 +193,21 @@ def logistic_regression(y, tx, initial_w, max_iters, gamma):
         loss: float
             Empirical loss for the final model
     """
-    pass
+    w = initial_w
+    n = len(y)
+
+    for _ in range(max_iters):
+        pred = sigmoid(tx @ w)
+        grad = (1 / n) * tx.T @ (pred - y)
+        w = w - gamma * grad
+
+    loss = compute_logistic_loss(y, tx, w)
+    return w, loss
 
 
 def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
     """
-    Regularized logistic regression using gradient descent.
+    Regularized logistic regression using gradient descent (loss returned without penalty).
     Args:
         y: np.ndarray
             (nx1) Targets of the model
@@ -187,4 +226,13 @@ def reg_logistic_regression(y, tx, lambda_, initial_w, max_iters, gamma):
         loss: float
             Empirical loss for the final model
     """
-    pass
+    w = initial_w
+    n = len(y)
+
+    for _ in range(max_iters):
+        pred = sigmoid(tx @ w)
+        grad = (1 / n) * tx.T @ (pred - y) + 2 * lambda_ * w
+        w = w - gamma * grad
+
+    loss = compute_logistic_loss(y, tx, w)
+    return w, loss

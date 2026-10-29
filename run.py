@@ -4,7 +4,6 @@ from implementations import ridge_regression
 from preprocessing import preprocess_data, add_bias_term, find_best_threshold
 
 
-
 ### Load the dataset ###
 
 x_train, x_test, y_train, train_ids, test_ids = load_csv_data(
@@ -13,7 +12,6 @@ x_train, x_test, y_train, train_ids, test_ids = load_csv_data(
 
 print(f"Train samples: {x_train.shape[0]}, Features: {x_train.shape[1]}")
 print(f"Test samples:  {x_test.shape[0]}")
-
 
 
 ### Proprocess and add intercept ###
@@ -26,7 +24,6 @@ tx_train = add_bias_term(x_train_std)
 tx_test = add_bias_term(x_test_std)
 
 print(f"Features after preprocessing (with bias): {tx_train.shape[1]}")
-
 
 
 ### train ridge regression and optimize threshold ###
@@ -43,7 +40,6 @@ train_scores = tx_train @ w_ridge
 best_thresh, best_f1 = find_best_threshold(y_train, train_scores)
 print(f"Best decision threshold: {best_thresh:.4f}")
 print(f"Best training F1-score:   {best_f1:.4f}")
-
 
 
 ### Generate AIcrowd submission file ###
